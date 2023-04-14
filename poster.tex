@@ -1,0 +1,183 @@
+\documentclass[a0,portrait]{lab-poster}
+
+\usepackage[british]{babel}    % Language Configuration
+
+% \newcommand\itemadjust{\itemsep.5em \parskip0pt \parsep0pt}
+
+\title{Your Title Here}
+\author{John Student}
+% \major{CS4525: Joint Honours Computer Project}
+\major{CS4529: Single Honours Computing Project}
+% \major{CS4594: Joint Honours Computing-Physics Project}
+\supervisor{Mary Supervisor}
+
+\themecolor{NavyBlue}
+\unilogo{images/logoAberdeen.pdf}
+\lablogo{images/logoAberdeen.pdf}
+
+\begin{document}
+\maketitle
+
+%---------------------------------------------------------------
+
+\begin{multicols}{2} 
+%---------------------------------------------------------------
+%	Motivation
+%---------------------------------------------------------------
+% \color{NavyBlue}
+\section*{Section 1}
+% \color{Black}
+\Large
+\justifying
+
+\begin{itemize}
+	\item Point 1;
+	\item Point 2;
+	\item 
+\end{itemize}
+
+%---------------------------------------------------------------
+%   AGENTES
+%---------------------------------------------------------------
+\section*{\huge Section 2}
+
+\begin{itemize}
+	\item Idea 1; and
+	\item Idea 2.
+\end{itemize}
+
+%---------------------------------------------------------------
+%	Algorithm / Technique
+%---------------------------------------------------------------
+\section*{\huge Section 3}
+
+\begin{itemize}
+	\item Some interesting description of your point one;
+	\item Programmes developed using language XYZ as shown in Listing~\ref{alg:example-hello-world}, define set of beliefs, plans, triggering events, and actions that the agent runs in the environment;
+	\item Definitions from Table~\ref{tab:syntax-agentspeak} specify these sets.
+\end{itemize}
+
+\vspace{13mm}
+
+
+\begin{itemize}
+	\item More Ideas...:
+	\begin{enumerate}
+		% [leftmargin=2em]\itemadjust
+		\item Idea 1;
+		\item Idea 2; 
+		\item Idea 3; and
+		\item Idea 4.
+	\end{enumerate}	
+	\item Figure~\ref{fig:myfig} illustrates this.
+\end{itemize}
+\vspace{13mm}
+
+\begin{center}
+	%\includegraphics[width=0.99\linewidth]{fig/myfig.pdf}
+	\Huge Figure Here (include commented out)
+	\captionof{figure}{Figure example.}
+	\label{fig:myfig}
+\end{center}	
+
+
+\section*{Section 3}
+
+\begin{itemize}
+	\item More Ideas...:
+	\begin{enumerate}
+		% [leftmargin=2em]\itemadjust
+		\item Idea 1;
+		\item Idea 2; 
+		\item Idea 3; e
+		\item Idea 4.
+	\end{enumerate}	
+	\item Figure~\ref{fig:myfig} illustrates this.
+\end{itemize}
+
+
+\vspace{13mm}
+\noindent\begin{minipage}{.235\textwidth}
+	\begin{minipage}{\textwidth}
+		\lstset{style=codeStyle}
+		\begin{lstlisting}[language=Prolog, label={alg:example-hello-world}, caption={AgentSpeak(L) programme example.}]
+		/* Agent helloWorld */
+		/* Initial beliefs and rules */
+		
+		/* Initial goals */			
+		!start.
+		/* Plans */
+		+!start : true <- aloha; ?continue(true);      !run (agentspeak).
+		+!run(A) : true <- mahalo(A).
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\vspace{7mm}
+	
+	\begin{minipage}{\textwidth}
+		\lstset{style=codeStyle}
+		\begin{lstlisting}[language=Prolog, label={alg:exemplo-projeto-hello-world}, caption={AgentSpeak(Py) programme example.}]
+		/* Project Name */
+		helloWorld:
+		// List of agents
+		agents = [helloWorld]
+		environment = HelloWorldEnv
+		\end{lstlisting}
+	\end{minipage}\hfill
+\end{minipage}\hfill
+\begin{minipage}{.235\textwidth}
+	\lstset{style=codeStyle}
+	\begin{lstlisting}[language=Python, label={alg:exemplo-environment}, caption={Environment description in Python.}]
+	from environment import *
+	lt_continue = parse_literal('continue(true)')
+	
+	class HelloWorldEnv(Environment):
+		def __init__(self):
+			Environment.__init__(self)
+		
+		def execute_action(self, agent_name, action):
+			self.clear_perceptions()
+			getattr(self, action.functor)(list(action.args))
+		
+		def aloha(self, *args):
+			self.add_percept(lt_continue)
+			print('Aloha HelloWorldEnv!')
+		
+		def mahalo(self, *args):
+			print('Mahaloing with %s!' % ", ".join(map(str, *args)))
+	\end{lstlisting}
+\end{minipage}
+
+\section*{\huge Section 4}
+      
+Current font sizes:
+\begin{itemize}
+	\item {\tiny \verb|\tiny| Font Size: \showfontsize}
+	\item {\scriptsize \verb|\scriptsize| Font Size: \showfontsize}
+	\item {\footnotesize \verb|\footnotesize| Font Size: \showfontsize}
+	\item {\small \verb|\small| Font Size: \showfontsize}
+	\item {\normalsize \verb|\normalsize| Font Size: \showfontsize}
+	\item {\large \verb|\large| Font Size: \showfontsize}
+	\item {\Large \verb|\Large| Font Size: \showfontsize}
+	\item {\LARGE \verb|\LARGE| Font Size: \showfontsize}
+	\item {\huge \verb|\huge| Font Size: \showfontsize}
+	\item {\Huge \verb|\Huge| Font Size: \showfontsize}
+	\item {\veryHuge \verb|\veryHuge| Font Size: \showfontsize}
+\end{itemize}
+
+
+%---------------------------------------------------------------
+%	REFERENCES
+%---------------------------------------------------------------
+% Uncomment below if you want to use bib references in your poster
+%\vspace{-10mm}
+%\large
+%\color{NavyBlue}
+%\color{Black}
+%\raggedright
+%\bibliographystyle{plain}
+%\bibliography{poster}
+
+\end{multicols}
+
+%----------------------------------------------------------------------------------------
+\end{document}
