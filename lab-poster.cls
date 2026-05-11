@@ -23,6 +23,10 @@
 \columnsep=100pt
 \columnseprule=3pt
 
+% Number of columns used in \begin{multicols}{...} in the document.
+% Override with \setlength or redefine \postercolumns before \begin{document}.
+\newcommand{\postercolumns}{2}
+
 
 \RequirePackage{ragged2e}
 \RequirePackage[utf8]{inputenc}		% Document encoding
@@ -39,7 +43,7 @@
 
 \RequirePackage{listings}
 
-\usepackage{listingsutf8}
+\RequirePackage{listingsutf8}
 
 \lstset{literate=
 	{ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
@@ -91,7 +95,7 @@
 \newcommand{\major}[1]{\def\@major{#1}}
 
 %Student emails
-\def\@email{student.name@abdn.ac.uk}
+\global\let\@email\@empty
 \newcommand{\email}[1]{\def\@email{#1}}
 
 % ======================
@@ -111,6 +115,7 @@
 \renewcommand{\LARGE}{\fontsize{43}{51.6}\selectfont}
 \renewcommand{\huge}{\fontsize{52}{62.4}\selectfont}
 \renewcommand{\Huge}{\fontsize{62}{74.4}\selectfont}
+% \veryHuge is not a standard LaTeX command; it is defined by a0poster and used in \@maketitle.
 \renewcommand{\veryHuge}{\fontsize{74}{88.8}\selectfont}
 
 
@@ -134,8 +139,9 @@
 % = Lab and University Logos =
 % ============================
 \global\let\@lablogo\@empty
-% \def\@lablogo{}
-\newcommand{\lablogo}[1]{\def\@lablogo{#1}}
+\newif\if@hasLabLogo
+\@hasLabLogofalse
+\newcommand{\lablogo}[1]{\def\@lablogo{#1}\@hasLabLogotrue}
 
 \global\let\@unilogo\@empty
 % \def\@unilogo{}
@@ -176,16 +182,25 @@
 		\@major\\%
 		\fi
 		% Pontifícia Universidade Católica do Rio Grande do Sul\\
+		\ifx\@email\@empty%
+			\relax%
+		\else%
 		\Large \Letter ~ \texttt{\@email}\\%
+		\fi%
 	\end{minipage}%
 %
 	\begin{minipage}[c]{0.30\linewidth}%
 		\begin{flushleft}%
+		\ifx\@unilogo\@empty%
+			\relax%
+		\else%
+		\includegraphics[width=\textwidth]{\@unilogo}%
+		\fi%
 		\ifx\@lablogo\@empty%
 			\relax%
 		\else%
-		\includegraphics[width=23cm]{\@unilogo}%
-		\fi %
+		\includegraphics[width=\textwidth]{\@lablogo}%
+		\fi%
 			% \includegraphics[width=9cm]{fig/ep-logo.pdf}%
 		\end{flushleft}%
 	\end{minipage}}%
