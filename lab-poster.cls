@@ -3,7 +3,7 @@
 % 2017-Nov-19 Felipe Meneguzzi felipe.meneguzzi (at) abdn.ac.uk
 % --- Class structure: identification part
 % ---
-\ProvidesClass{lab-poster}[2026/05/11 version 1.02 Lab Poster]
+\ProvidesClass{lab-poster}[2026/05/11 version 1.03 Lab Poster]
 \NeedsTeXFormat{LaTeX2e}
 
 % --- Class structure: declaration of options part
