@@ -3,7 +3,7 @@
 % 2017-Nov-19 Felipe Meneguzzi felipe.meneguzzi (at) abdn.ac.uk
 % --- Class structure: identification part
 % ---
-\ProvidesClass{lab-poster}[2017/11/19 version 1.00 Lab Poster]
+\ProvidesClass{lab-poster}[2026/05/11 version 1.02 Lab Poster]
 \NeedsTeXFormat{LaTeX2e}
 
 % --- Class structure: declaration of options part
@@ -194,12 +194,12 @@
 		\ifx\@unilogo\@empty%
 			\relax%
 		\else%
-		\includegraphics[width=\textwidth]{\@unilogo}%
-		\fi%
-		\ifx\@lablogo\@empty%
-			\relax%
-		\else%
-		\includegraphics[width=\textwidth]{\@lablogo}%
+			\if@hasLabLogo%
+				\includegraphics[width=0.48\linewidth]{\@unilogo}\hfill%
+				\includegraphics[width=0.48\linewidth]{\@lablogo}%
+			\else%
+				\includegraphics[width=\linewidth]{\@unilogo}%
+			\fi%
 		\fi%
 			% \includegraphics[width=9cm]{fig/ep-logo.pdf}%
 		\end{flushleft}%
