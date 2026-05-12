@@ -52,6 +52,7 @@
 
 \RequirePackage{ragged2e}
 \RequirePackage[utf8]{inputenc}       % Document encoding
+\RequirePackage{lmodern}              % Scalable fonts — prevents CM size-substitution warnings
 \RequirePackage{times}
 \RequirePackage{graphicx}
 \RequirePackage{booktabs}
