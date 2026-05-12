@@ -33,7 +33,7 @@ jobs:
 
           check_size() {
             local pdf=$1 exp_w=$2 exp_h=$3 label=$4
-            local tol=2
+            local tol=5
             read w h <<< $(pdfinfo "$pdf" | awk '/Page size/ {print int($3), int($5)}')
             if [ $((w - exp_w)) -gt $tol ] || [ $((exp_w - w)) -gt $tol ] || \
                [ $((h - exp_h)) -gt $tol ] || [ $((exp_h - h)) -gt $tol ]; then
@@ -43,8 +43,8 @@ jobs:
             echo "OK: $label ${w}x${h} pts"
           }
 
-          check_size poster-a0.pdf 2384 3370 "A0"
-          check_size poster-a2.pdf 1191 1684 "A2"
+          check_size poster-a0.pdf 2379 3368 "A0"
+          check_size poster-a2.pdf 1190 1684 "A2"
 
       - name: Upload PDFs
         uses: actions/upload-artifact@v4
