@@ -1,0 +1,54 @@
+name: Build
+
+on:
+  push:
+    branches: [main, a2-poster]
+  pull_request:
+    branches: [main]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile poster (A0)
+        uses: xu-cheng/texlive-action@v3
+        with:
+          run: |
+            latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode poster.tex
+            cp poster.pdf poster-a0.pdf
+
+      - name: Compile poster (A2)
+        uses: xu-cheng/texlive-action@v3
+        with:
+          run: |
+            sed -i 's/\\documentclass\[a0/\\documentclass[a2/' poster.tex
+            latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode poster.tex
+            cp poster.pdf poster-a2.pdf
+
+      - name: Check PDF dimensions
+        run: |
+          sudo apt-get install -y poppler-utils
+
+          check_size() {
+            local pdf=$1 exp_w=$2 exp_h=$3 label=$4
+            local tol=2
+            read w h <<< $(pdfinfo "$pdf" | awk '/Page size/ {print int($3), int($5)}')
+            if [ $((w - exp_w)) -gt $tol ] || [ $((exp_w - w)) -gt $tol ] || \
+               [ $((h - exp_h)) -gt $tol ] || [ $((exp_h - h)) -gt $tol ]; then
+              echo "FAIL: $label expected ${exp_w}x${exp_h} pts, got ${w}x${h} pts"
+              exit 1
+            fi
+            echo "OK: $label ${w}x${h} pts"
+          }
+
+          check_size poster-a0.pdf 2384 3370 "A0"
+          check_size poster-a2.pdf 1191 1684 "A2"
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: poster-pdfs
+          path: "poster-a*.pdf"
